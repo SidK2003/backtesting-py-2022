@@ -14,11 +14,11 @@ class RsiOscillator(Strategy):
 
     # All initial calculations
     def init(self):
-        self.daily_rsi = self.I(ta.rsiI, pd.Series(self.data.Close), self.rsi_window)
+        self.daily_rsi = self.I(ta.rsi, pd.Series(self.data.Close), self.rsi_window)
 
         # This magical function does all the resampling 
         self.weekly_rsi = resample_apply(
-            'W-FRI', ta.rsi, pd.Series(self.data.Close), self.rsi_window)
+            'W-FRI', ta.rsi, self.data.Close, self.rsi_window)
 
 
     def next(self):
